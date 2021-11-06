@@ -2,8 +2,9 @@
     <div class="flex px-4 py-3 mb-8 mt-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 
         <div class="md:w-1/2 px-2 ">
+
             <img 
-                src="{{ (!empty($companyLogo))? $companyLogo->temporaryUrl():asset('image/icons/image.png') }}" 
+                src="{{ (!empty($companyLogo))? $companyLogo->temporaryUrl():($user->main_company->company_logo ? asset('storage/'.$user->main_company->company_logo):asset('image/icons/image.png')) }}" 
                 class="object-cover w-36 h-36 mt-5 mx-auto rounded-full border-4 border-purple-200 filter drop-shadow-lg">
             
             <div class="mx-3">

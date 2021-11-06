@@ -43,6 +43,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'main_company'
+    ];
+
     /**
      * Get all of the userAddress for the User
      *
@@ -111,5 +115,24 @@ class User extends Authenticatable
     public function user_avatars()
     {
         return $this->hasMany(UserAvatars::class, 'user_id', 'id');
+    }
+
+    public function getMainCompanyAttribute()
+    {
+        $userCompany = $this->userCompany()->first();
+        return (object)[
+            'user_company_id'   => $userCompany->id ?? null,
+            'company_name'      => $userCompany->company_name ?? null,
+            'incorp_date'       => $userCompany->incorp_date ?? null,
+            'roc'               => $userCompany->roc ?? null,
+            'address_1'         => $userCompany->address1 ?? null,
+            'address_2'         => $userCompany->address2 ?? null,
+            'city'              => $userCompany->city ?? null,
+            'state'             => $userCompany->state ?? null,
+            'postcode'          => $userCompany->postcode ?? null,
+            'country'           => $userCompany->country ?? null,
+            'company_logo'      => $userCompany->UserCompanyLogo->location ?? null,
+            'storage'           => $userCompany->UserCompanyLogo->storage ?? null,
+        ];
     }
 }

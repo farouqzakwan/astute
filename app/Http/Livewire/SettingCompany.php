@@ -66,14 +66,14 @@ class SettingCompany extends Component
     public function mount()
     {
         $this->user = Auth()->user();
-        $this->companyName = $this->user->userCompany[0]->company_name;
-        $this->roc = $this->user->userCompany[0]->roc;
-        $this->address = $this->user->userCompany[0]->address1;
-        $this->address2 = $this->user->userCompany[0]->address2;
-        $this->city = $this->user->userCompany[0]->city;
-        $this->state = $this->user->userCompany[0]->state;
-        $this->postcode = $this->user->userCompany[0]->postcode;
-        $this->country = $this->user->userCompany[0]->country;
+        $this->companyName = $this->user->main_company->company_name;
+        $this->roc = $this->user->main_company->roc;
+        $this->address = $this->user->main_company->address_1;
+        $this->address2 = $this->user->main_company->address_2;
+        $this->city = $this->user->main_company->city;
+        $this->state = $this->user->main_company->state;
+        $this->postcode = $this->user->main_company->postcode;
+        $this->country = $this->user->main_company->country;
     }
 
     public function render()
