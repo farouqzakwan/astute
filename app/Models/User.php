@@ -44,7 +44,8 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'main_company'
+        'main_company',
+        'user_avatar'
     ];
 
     /**
@@ -112,9 +113,18 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function user_avatars()
+    public function userAvatars()
     {
         return $this->hasMany(UserAvatars::class, 'user_id', 'id');
+    }
+
+    public function getUserAvatarAttribute()
+    {
+        $userAvatar = $this->userAvatars()->first();
+        return (object)[
+            'avatar'    => $userAvatar->location ?? null,
+            'storage'   => $userAvatar->storage ?? null
+        ];
     }
 
     public function getMainCompanyAttribute()

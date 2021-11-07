@@ -119,6 +119,8 @@ class Profile extends Component
     public function mount()
     {
         $user                   = Auth()->user();
+
+        // dd($user->toArray());
         $this->user             = $user;
         $this->username         = $user->name;
         $this->dob              = $user->dob;
