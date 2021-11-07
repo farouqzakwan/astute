@@ -27,7 +27,7 @@
         <div class="grid mb-8 md:grid-cols-2">
             <div class="items-baseline md:ml-auto w-full md:mt-5 relative mb-4 mt-4">
                 <img 
-                    src="{{ storage_path($this->userCompany['companyLogo']) }}" 
+                    src="{{ asset('storage/'.$userCompany['companyLogo']) }}" 
                     class="object-cover w-36 h-36 rounded-full border-4 border-purple-200 filter drop-shadow-lg">
 
                 <br>

@@ -49,15 +49,16 @@ class CreateInvoice extends Component
     {
         $this->user = Auth()->user();
         $this->userCompany = [
-            'name'          => $this->user->userCompany[0]->company_name ?? '',
+            'name'          => $this->user->main_company->company_name ?? '',
             'address'       => [
-                'address1'      => $this->user->userCompany[0]->address1 ?? '',
-                'address2'      => $this->user->userCompany[0]->address2 ?? '',
-                'postcode'      => $this->user->userCompany[0]->postcode ?? '',
-                'city'          => $this->user->userCompany[0]->city ?? '',
-                'state'         => $this->user->userCompany[0]->state ?? '',
+                'address1'      => $this->user->main_company->address_1 ?? '',
+                'address2'      => $this->user->main_company->address_2 ?? '',
+                'postcode'      => $this->user->main_company->postcode ?? '',
+                'city'          => $this->user->main_company->city ?? '',
+                'state'         => $this->user->main_company->state ?? '',
             ],
-            'companyLogo'   => $this->user->userCompany[0]->userCompanyLogo->location ?? 'image/icons/image.png'
+            'companyLogo'   => $this->user->main_company->company_logo ?? 'image/icons/image.png',
+            'storage'       => $this->user->main_company->storage ?? config('filesystems.default')
         ];
 
         $this->currencies = Currencies::get();
