@@ -11,9 +11,6 @@ use Livewire\Component;
 class CreateInvoice extends Component
 {
     public $userCompany = [];
-    public $client = [];
-    public $customers = [];
-    public $search;
     public $currencies;
     public $taxes = 
     [
@@ -36,13 +33,6 @@ class CreateInvoice extends Component
     public function hydrate()
     {
         $this->user = Auth()->user();
-        $this->customers = UserCustomers::where('user_id',$this->user->id)
-                            ->when($this->search,function($q){
-                                $q->where('name','like','%'.$this->search.'%');
-                            })
-                            ->limit(5)
-                            ->get()
-                            ->toArray();
     }
 
     public function mount()
@@ -72,21 +62,6 @@ class CreateInvoice extends Component
         return view('livewire.create-invoice');
     }
 
-    public function selectCustomer($customerId)
-    {
-        $selectedCustomer = UserCustomers::where('user_id',$this->user->id)->find($customerId);
-        $this->client = [
-            'name'      => $selectedCustomer->name ?? '',
-            'address'   => [
-                'address1'  => $selectedCustomer->userCustomerAddress[0]->address1 ?? '',
-                'address2'  => $selectedCustomer->userCustomerAddress[0]->address2 ?? '',
-                'postcode'  => $selectedCustomer->userCustomerAddress[0]->postcode ?? '',
-                'city'      => $selectedCustomer->userCustomerAddress[0]->city ?? '',
-                'state'     => $selectedCustomer->userCustomerAddress[0]->state ?? '',
-            ]
-        ];
-    }
-
     public function addItem()
     {
         array_push($this->invoiceItems,[
@@ -108,8 +83,6 @@ class CreateInvoice extends Component
             'message'   => 'Successfully adding new invoice ...'
         ]);
     }
-
-
 
 
 

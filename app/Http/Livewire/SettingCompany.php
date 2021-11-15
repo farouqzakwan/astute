@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Images;
 use App\Models\UserCompany;
-use App\Models\UserCompanyLogo;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -40,21 +40,22 @@ class SettingCompany extends Component
             'updated_at'    => Carbon::now()
         ]);
 
-        $location = $this->companyLogo->store('public/photo/'.$this->user->id.'/company/'.$userCompany->id);
-        UserCompanyLogo::updateOrCreate([
-            'user_company_id'   => $userCompany->id 
+        $location = ($this->companyLogo)?$this->companyLogo->store('public/photo/'.$this->user->id.'/company/'.$userCompany->id):'public/image/icons/image.png';
+        
+        //store image 
+        Images::updateOrCreate([
+            'model_id'      => $this->user->id,
+            'model_type'    => UserCompany::class
         ],[
-            'location'  => $location,
-            'uuid'      => Str::uuid(),
-            'storage'   => config('filesystems.default'),
-            'created_at'=> Carbon::now(),
-            'updated_at'=> Carbon::now()
+            'location'      => $location,
+            'uuid'          => Str::uuid(),
+            'storage'       => config('filesystems.default'),
         ]);
 
         $this->dispatchBrowserEvent('notification',[
             'status'    => true,
             'title'     => 'Congratulations!',
-            'message'   => 'Successfully updating your comapny profile...'
+            'message'   => 'Successfully updating your company profile...'
         ]);
     }
 

@@ -1,8 +1,8 @@
 <div>    
     <div class="flex px-4 py-3 mb-8 mt-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <div class="md:w-1/2 px-2 ">
-            <img 
-                src="{{ (!empty($avatar))?$avatar->temporaryUrl():($user->user_avatar->avatar?asset('storage/'.$user->user_avatar->avatar):asset('image/icons/image.png') )}}" 
+            <img
+                src="{{ (!empty($avatar))?$avatar->temporaryUrl():asset($user->main_company->company_logo) }}"
                 class="object-cover w-36 h-36 mt-5 mx-auto rounded-full border-4 border-purple-200 filter drop-shadow-lg">
             <div class="mx-3">
                 <label class="flex items-center text-center justify-between px-4 py-2 text-sm font-medium leading-5 text-dark transition-colors duration-150 bg-gray-300 border border-transparent rounded-lg active:bg-gray-400 hover:bg-gray-400 focus:outline-none focus:shadow-outline-purple cursor-pointer">

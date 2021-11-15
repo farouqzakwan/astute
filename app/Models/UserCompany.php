@@ -29,13 +29,9 @@ class UserCompany extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    /**
-     * Get the user_company_logo associated with the UserCompany
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function UserCompanyLogo()
+    public function image()
     {
-        return $this->hasOne(UserCompanyLogo::class, 'user_company_id', 'id');
+        return $this->morphOne(Images::class,'model');
     }
+    
 }

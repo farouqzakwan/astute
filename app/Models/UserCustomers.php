@@ -39,13 +39,8 @@ class UserCustomers extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-   /**
-    * Get the user_customer_logo associated with the UserCustomers
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\HasOne
-    */
-   public function user_customer_logo()
+   public function image()
    {
-       return $this->hasOne(UserCustomerLogo::class, 'user_customer_id', 'id');
+        return $this->morphOne(Images::class,'model');
    }
 }

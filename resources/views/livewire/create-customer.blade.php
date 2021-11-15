@@ -4,7 +4,7 @@
             
             <div class="flex items-baseline md:ml-auto w-full md:mt-5 relative mb-4 mt-4">
                 <img 
-                    src="{{ (!empty($photo))? $photo->temporaryUrl():asset('image/icons/image.png') }}" 
+                    src="{{ (!empty($photo))? $photo->temporaryUrl():asset($user->main_company->company_logo)}}" 
                     class="object-cover w-36 h-36 rounded-full border-4 border-purple-200 filter drop-shadow-lg">
 
                 <div class="mx-3">

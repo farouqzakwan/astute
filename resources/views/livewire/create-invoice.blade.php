@@ -25,11 +25,12 @@
             </div>
 
             <p class="text-right p-4 dark:text-white ">
-                <span class="font-semibold capitalize text-right">{{ $userCompany['name'] }}</span><br>
-                {{ $userCompany['address']['address1'] ?? ''}} <br>
-                {{ $userCompany['address']['address2'] ?? ''}}<br>
-                {{ $userCompany['address']['postcode'] ?? '' }} {{ $userCompany['address']['city'] ?? '' }}
-                {{ $userCompany['address']['State'] ?? '' }}
+                <input type="text" value="{{ $userCompany['name'] ?? '' }}" placeholder=""><br>
+                <input type="text" value="{{ $userCompany['address']['address1'] ?? ''}}" placeholder=""> <br>
+                <input type="text" value="{{ $userCompany['address']['address2'] ?? ''}}" placeholder=""><br>
+                <input type="text" value="{{ $userCompany['address']['postcode'] ?? '' }}" placeholder=""><br>
+                <input type="text" value="{{ $userCompany['address']['city'] ?? '' }}" placeholder=""><br>
+                <input type="text" value="{{ $userCompany['address']['State'] ?? '' }}" placeholder="">
             </p>
         </div>
     
@@ -37,42 +38,7 @@
     
         <div class="grid mb-8 md:grid-cols-2">
             <div class="p-4 dark:text-white">
-                <span class="font-semibold capitalize text-right"> {{ $client['name'] ?? '' }}</span><br>
-                {{ $client['address']['address1'] ?? ''}} <br>
-                {{ $client['address']['address2'] ?? ''}}<br>
-                {{ $client['address']['postcode'] ?? '' }} {{ $client['addres']['city'] ?? '' }}
-                {{ $client['address']['state'] ?? '' }}
-
-                @if (!$client)
-                <input 
-                    wire:model="search"
-                    type="text" 
-                    class="border-2 rounded h-8 w-full" 
-                    autocomplete="off"
-                    >
-                <div class="rounded shadow-md my-2 relative pin-t pin-l w-100">
-                    <ul class="list-reset">
-                        @foreach ($customers as $customer)
-                        <li
-                            wire:click="selectCustomer({{$customer['id']}})"
-                            >
-                            <p class="p-2 block text-black hover:bg-grey-light cursor-pointer">
-                                {{ $customer['name'] }}
-                            </p>
-                        </li> 
-                        @endforeach
-                    </ul>
-                </div>   
-                
-                @endif
-
-                
-
-                @if ($client)
-                    <a href="#" class="text-underline text-purple-500">Edit {{ $client['name'] ?? ''}}</a> 
-                    <span class="text-purple-500">.</span> 
-                    <a href="#" class="text-purple-500">Choose a different client</a>
-                @endif
+                @livewire('invoices.company-search')
             </div>
             
             <div class="p-4">

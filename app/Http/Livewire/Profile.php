@@ -3,9 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\Images;
 use App\Models\User;
 use App\Models\UserAddress;
-use App\Models\UserAvatars;
 use App\Models\UserContact;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -40,17 +40,18 @@ class Profile extends Component
                 'updated_at' => Carbon::now()
             ]);
 
-            $avatar_path = $this->avatar->store('public/photo/'.$this->user->id.'/avatar');
-
-            UserAvatars::updateOrCreate([
-                'user_id'   => $this->user->id,
+            $image_path = ($this->avatar)?$this->avatar->store('public/photo/'.$this->user->id.'/avatar'):'public/image/icons/image.png';
+            
+            //store image 
+            Images::updateOrCreate([
+                'model_id'      => $this->user->id,
+                'model_type'    => User::class
             ],[
-                'location'  => $avatar_path,
-                'uuid'      => Str::uuid(),
-                'storage'   => config('filesystems.default'),
-                'created_at'=> Carbon::now(),
-                'updated_at'=> Carbon::now()
+                'location'      => $image_path,
+                'uuid'          => Str::uuid(),
+                'storage'       => config('filesystems.default'),
             ]);
+            
 
         //update table : userContact
             if(!empty($this->user->userContact[0]))
@@ -119,8 +120,6 @@ class Profile extends Component
     public function mount()
     {
         $user                   = Auth()->user();
-
-        // dd($user->toArray());
         $this->user             = $user;
         $this->username         = $user->name;
         $this->dob              = $user->dob;

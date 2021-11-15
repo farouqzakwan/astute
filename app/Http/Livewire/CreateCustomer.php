@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\UserCustomerLogo;
+use App\Models\Images;
 use App\Models\UserCustomers;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -33,14 +33,15 @@ class CreateCustomer extends Component
             'updated_at'    => Carbon::now()
         ]);
         
-        $photo_path = $this->photo->store('public/sphoto/'.$this->user->id.'/'.$user_customer->id);
-        UserCustomerLogo::create([
-            'user_customer_id'  => $user_customer->id,
-            'location'          => $photo_path,
-            'uuid'              => Str::uuid(),
-            'storage'           => config('filesystems.default'),
-            'created_at'        => Carbon::now(),
-            'updated_at'        => Carbon::now()
+
+        $photo_path = ($this->photo)?$this->photo->store('public/customer/'.$this->user->id.'/'.$user_customer->id):'public/image/icons/image.png';
+        Images::updateOrCreate([
+            'model_id'      => $this->user->id,
+            'model_type'    => UserCompany::class
+        ],[
+            'location'      => $photo_path,
+            'uuid'          => Str::uuid(),
+            'storage'       => config('filesystems.default'),
         ]);
 
         $this->clientName = $this->roc = $this->email = $this->phoneNumber = null;

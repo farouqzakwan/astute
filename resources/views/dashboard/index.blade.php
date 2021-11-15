@@ -19,8 +19,12 @@
         </main>
       </div>
     </div>
-    <script defer src="https://unpkg.com/@alpinejs/trap@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script defer src="{{ asset('js/alpinejs/cdn.min.js') }}"></script>
+    <script src="{{ asset('js/alpinejs/alpine.min.js') }}"></script>
+    {{-- 
+      <script defer src="https://unpkg.com/@alpinejs/trap@3.x.x/dist/cdn.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script> 
+    --}}
     
     @livewireScripts
     <script src="{{ asset('windmill/assets/js/init-alpine.js')}}"></script>

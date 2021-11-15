@@ -44,8 +44,7 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'main_company',
-        'user_avatar'
+        'main_company'
     ];
 
     /**
@@ -108,23 +107,9 @@ class User extends Authenticatable
         return $this->hasMany(UserInvoiceTaxes::class, 'user_id', 'id');
     }
 
-    /**
-     * Get all of the user_avatars for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function userAvatars()
+    public function image()
     {
-        return $this->hasMany(UserAvatars::class, 'user_id', 'id');
-    }
-
-    public function getUserAvatarAttribute()
-    {
-        $userAvatar = $this->userAvatars()->first();
-        return (object)[
-            'avatar'    => $userAvatar->location ?? null,
-            'storage'   => $userAvatar->storage ?? null
-        ];
+        return $this->morphOne(Images::class,'model');
     }
 
     public function getMainCompanyAttribute()
@@ -141,8 +126,8 @@ class User extends Authenticatable
             'state'             => $userCompany->state ?? null,
             'postcode'          => $userCompany->postcode ?? null,
             'country'           => $userCompany->country ?? null,
-            'company_logo'      => $userCompany->UserCompanyLogo->location ?? null,
-            'storage'           => $userCompany->UserCompanyLogo->storage ?? null,
+            'company_logo'      => str_replace('public/','storage/',$userCompany->image->location) ?? 'image/icons/image.png',
+            'storage'           => $userCompany->image->storage ?? 'local',
         ];
     }
 }
