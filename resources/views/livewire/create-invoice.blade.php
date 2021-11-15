@@ -4,9 +4,8 @@
         <div class="grid mb-8 md:grid-cols-2">
             <div class="items-baseline md:ml-auto w-full md:mt-5 relative mb-4 mt-4">
                 <img 
-                    src="{{ asset('storage/'.$userCompany['companyLogo']) }}" 
+                    src="{{ asset($userCompany['companyLogo']) }}" 
                     class="object-cover w-36 h-36 rounded-full border-4 border-purple-200 filter drop-shadow-lg">
-
                 <br>
                 <div class="mx-3">
                     <label class="flex items-center text-center justify-between px-4 py-2 text-sm font-medium leading-5 text-dark transition-colors duration-150 bg-gray-300 border border-transparent rounded-lg active:bg-gray-400 hover:bg-gray-400 focus:outline-none focus:shadow-outline-purple cursor-pointer">
