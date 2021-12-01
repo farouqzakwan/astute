@@ -150,4 +150,14 @@ class Currencies extends Model
     * @var array
     */
     protected $guarded  = [];
+
+    /**
+     * Get all of the user_invoices for the Currencies
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function user_invoices()
+    {
+        return $this->hasMany(UserInvoices::class, 'currency_id', 'id');
+    }
 }

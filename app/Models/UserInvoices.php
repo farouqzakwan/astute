@@ -58,4 +58,14 @@ class UserInvoices extends Model
     {
         return $this->hasMany(UserInvoiceItems::class, 'invoice_id', 'id');
     }
+
+    /**
+     * Get the currency associated with the UserInvoices
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function currency()
+    {
+        return $this->hasOne(Currencies::class, 'id', 'currency_id');
+    }
 }
