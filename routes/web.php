@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LogviewerController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,15 +37,6 @@ Route::get('/reset-password/{temporaryCode}',function(){
     return view('dashboard.reset_password');
 })->name('reset-password');
 
-Route::get('/upload',function(){
-    return view('test/upload');
-});
-
-Route::post('upload',function(Request $request){
-    $file = $request->file('uploadedfile');
-    $filename = $file->getClientOriginalName();
-    $file->storeAs('upload',$filename,'s3');
-});
 
 Route::middleware('auth')->group(function () {
     
@@ -76,5 +68,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('settings')->group(function () {
         require __DIR__.'/dashboard/settings/web.php';
     });
-});
 
+    Route::get('log', function(){
+        return view('dashboard.logs.index');
+    });
+});

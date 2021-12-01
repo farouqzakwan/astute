@@ -13,7 +13,7 @@ class CompanySearch extends Component
     public $user;
     public $search;
     
-    public function hydrate()
+    public function updatedSearch()
     {
         $this->customers = UserCustomers::where('user_id',$this->user->id)
                             ->when($this->search,function($q){
@@ -48,5 +48,6 @@ class CompanySearch extends Component
                 'state'     => $selectedCustomer->userCustomerAddress[0]->state ?? '',
             ]
         ];
+        $this->emit('selectCustomer',$this->client);
     }
 }

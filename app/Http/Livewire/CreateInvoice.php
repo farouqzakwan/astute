@@ -3,42 +3,48 @@
 namespace App\Http\Livewire;
 
 use App\Models\Currencies;
-use App\Models\UserCustomers;
+use App\Models\UserInvoiceBuyers;
+use App\Models\UserInvoiceItems;
+use App\Models\UserInvoices;
+use App\Models\UserInvoiceSellers;
 use App\Models\UserInvoiceTaxes;
-use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class CreateInvoice extends Component
 {
     public $userCompany = [];
+    public $clients;
     public $currencies;
-    public $taxes = 
-    [
-        'ABC 0%',
-        'DEF 0%',
-        'GST 0%'
-    ];
+    public $selectedCurrency;
+    public $taxes = [];
+    public $selectedTax;
     public $invoiceNumber;
     public $invoiceDate;
     public $invoiceDue;
     public $invoiceItems = [];
-    public $item = '';
-    public $description = '';
-    public $price = 0.00;
-    public $quantity = 0;
     public $total = 0; 
     public $subtotal = 0;
     public $user;
+    public $taxAmount = 0;
 
-    public function hydrate()
+    protected $listeners = ['selectCustomer','updatedItems','selectedTax','taxAmount'];
+
+    public function updatedInvoiceItems()
     {
-        $this->user = Auth()->user();
+        foreach ($this->invoiceItems as $key => $item) 
+        {
+           $this->invoiceItems[$key]['total'] = (!empty($item['price'])?$item['price']:0) * (!empty($item['quantity'])?$item['quantity']:0);
+        }
+        $this->total = $this->calculateTotal();
     }
 
     public function mount()
     {
         $this->user = Auth()->user();
         $this->userCompany = [
+            'id'            => $this->user->main_company->user_company_id ?? null,
             'name'          => $this->user->main_company->company_name ?? '',
             'address'       => [
                 'address1'      => $this->user->main_company->address_1 ?? '',
@@ -52,52 +58,110 @@ class CreateInvoice extends Component
         ];
 
         $this->currencies = Currencies::get();
-        $this->taxes = UserInvoiceTaxes::where('user_id',$this->user->id)->get();
+        $this->taxes = UserInvoiceTaxes::where('user_id',$this->user->id)->first();
     }
 
     public function render()
     {
-        $this->total = $this->calculateTotal();
         $this->subtotal = $this->calculateSubtotal();
+        $this->total = $this->calculateTotal();
         return view('livewire.create-invoice');
     }
 
-    public function addItem()
-    {
-        array_push($this->invoiceItems,[
-            'item'              => $this->item ?? '',
-            'description'       => $this->description ?? '',
-            'price'             => $this->price ?? 0,
-            'quantity'          => $this->quantity ?? 0,
-            'total'             => $this->calculateTotal(),
-        ]);   
-
-        $this->resetItem();
-    }   
-
     public function saveInvoice()
     {
-        $this->dispatchBrowserEvent('notification',[
-            'status'    => true,
-            'title'     => 'Congratulations!',
-            'message'   => 'Successfully adding new invoice ...'
-        ]);
+        DB::transaction(function () {
+            //user invoice
+            $user_invoices = UserInvoices::create([
+                'user_id'           => $this->user->id,
+                'user_company_id'   => $this->userCompany['id'],
+                'invoice_number'    => $this->invoiceNumber,
+                'invoice_date'      => $this->invoiceDate,
+                'payment_due'       => $this->invoiceDue,
+                'user_invoice_tax_id' => $this->taxes['id']?? null,
+                'tax_name'  => $this->taxes['name'] ?? null,
+                'rate'  => $this->taxes['rate'] ?? null,
+                'currency_id'   => $this->currencies[$this->selectedCurrency ?? 0]->id ?? null,
+                'subtotal'  => $this->subtotal ?? 0,                                                    //price before tax
+                'total' => $this->total ?? 0,                                                           //price after tax
+            ]);
+            
+            //userInvoiceSellers
+            $user_invoice_sellers  = UserInvoiceSellers::create([
+                'user_invoice_id'   => $user_invoices->id,
+                'name'              => $this->userCompany['name'] ?? null,
+                'address1'          => $this->userCompany['address']['address1'] ?? null,
+                'address2'          => $this->userCompany['address']['address2'] ?? null,
+                'city'              => $this->userCompany['address']['city'] ?? null,
+                'state'             => $this->userCompany['address']['state'] ?? null,
+                'postcode'          => $this->userCompany['address']['postcode'] ?? null,
+                'country'           => $this->userCompany['address']['country'] ?? null,
+                'logo'              => $this->userCompany['companyLogo'] ?? null
+            ]);
+
+            //userInvoiceBuyers
+            $user_invoice_buyers = UserInvoiceBuyers::create([
+                'user_invoice_id'   => $user_invoices->id,
+                'name'              => $this->clients['name'] ?? null,
+                'address1'          => $this->clients['address']['address1'] ?? null,
+                'address2'          => $this->clients['address']['address2'] ?? null,
+                'city'              => $this->clients['address']['city'] ?? null,
+                'state'             => $this->clients['address']['state'] ?? null,
+                'postcode'          => $this->clients['address']['postcode'] ?? null,
+                'country'           => $this->clients['address']['country'] ?? null,
+                'logo'              => $this->clients['companyLogo'] ?? null
+            ]);
+
+            if($user_invoices)
+            {
+                foreach ($this->invoiceItems as $key => $item) 
+                {
+                    $items[] = 
+                    [
+                        'invoice_id'    => $user_invoices->id,
+                        'item'          => $item['item'] ?? null,
+                        'description'   => $item['description'] ?? null,
+                        'price'         => $item['price'] ?? null,
+                        'quantity'      => $item['quantity'] ?? null,
+                        'total'         => $item['total'] ?? null,
+                        'created_at'    => Carbon::now(),
+                        'updated_at'    => Carbon::now()
+                    ];
+                }
+                UserInvoiceItems::insert($items);
+            }
+
+            $this->dispatchBrowserEvent('notification',[
+                'status'    => true,
+                'title'     => 'Congratulations!',
+                'message'   => 'Successfully adding new invoice ...'
+            ]);
+        });
     }
 
-
-
-    
-    private function resetItem()
+    public function selectCustomer($value)
     {
-        $this->item = '';
-        $this->description = '';
-        $this->price = 0.00;
-        $this->quantity = 0;
+        $this->clients = $value;
+    }
+
+    public function updatedItems($value)
+    {
+        $this->invoiceItems = $value;
+    }
+
+    public function selectedTax($value)
+    {
+        $this->taxes = $value;
+    }
+
+    public function taxAmount($value)
+    {
+        $this->taxAmount = $value;
     }
 
     private function calculateTotal()
     {
-        return number_format(($this->price ?? 0) * ($this->quantity ?? 0),2);    
+        return $this->subtotal + $this->taxAmount;
     }
 
     private function calculateSubtotal()
@@ -107,6 +171,6 @@ class CreateInvoice extends Component
         {
             $subtotal += ($items['total'] ?? 0);
         }
-        return number_format($subtotal,2);
+        return $subtotal;
     }
 }

@@ -28,4 +28,34 @@ class UserInvoices extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    /**
+     * Get the user_invoice_seller associated with the UserInvoices
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user_invoice_seller()
+    {
+        return $this->hasOne(UserInvoiceSellers::class, 'user_invoice_id', 'id');
+    }
+
+    /**
+     * Get the user_invoice_buyer associated with the UserInvoices
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user_invoice_buyer()
+    {
+        return $this->hasOne(UserInvoiceBuyers::class, 'user_invoice_id', 'id');
+    }
+
+    /**
+     * Get all of the user_invoice_items for the UserInvoices
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function user_invoice_items()
+    {
+        return $this->hasMany(UserInvoiceItems::class, 'invoice_id', 'id');
+    }
 }

@@ -29,7 +29,7 @@
                 <input type="text" value="{{ $userCompany['address']['address2'] ?? ''}}" placeholder=""><br>
                 <input type="text" value="{{ $userCompany['address']['postcode'] ?? '' }}" placeholder=""><br>
                 <input type="text" value="{{ $userCompany['address']['city'] ?? '' }}" placeholder=""><br>
-                <input type="text" value="{{ $userCompany['address']['State'] ?? '' }}" placeholder="">
+                <input type="text" value="{{ $userCompany['address']['state'] ?? '' }}" placeholder="">
             </p>
         </div>
     
@@ -76,109 +76,7 @@
     
     <div class="bg-white rounded-lg shadow-md dark:bg-gray-800">
         <div class="w-full overflow-x-auto">
-            <table class="w-full">
-                <thead>
-                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-4 py-3">Item</th>
-                    <th class="px-4 py-3 w-1/2">Description</th>
-                    <th class="px-4 py-3">Price</th>
-                    <th class="px-4 py-3">Quantity</th>
-                    <th class="px-4 py-3">Total</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach ($invoiceItems as $key => $invoicedItem)
-                        <tr class="text-gray-700 dark:text-gray-400">
-                            <td class="px-4 py-3 text-sm">
-                                <input 
-                                    rows="1" 
-                                    type="text" 
-                                    class="block w-full mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input overflow-y-auto" 
-                                    placeholder="Item" 
-                                    autocomplete="off">
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                <input 
-                                    type="text" 
-                                    class="block w-full mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" 
-                                    placeholder="Description" 
-                                    autocomplete="off">
-                            </td>
-                            <td class="px-4 py-3 text-xs">
-                                <span class="font-semibold text-right">
-                                    <input 
-                                        type="text" 
-                                        class="block w-full mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" 
-                                        placeholder="Amount" 
-                                        autocomplete="off">
-                                </span>
-                            </td>
-                            <td class="px-4 py-3 text-sm text-right">
-                                <input 
-                                    type="text" 
-                                    class="block w-full mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" 
-                                    placeholder="Quantity" 
-                                    autocomplete="off">
-                            </td>
-                            <td class="px-4 py-3 text-sm text-right">
-                                <span class="font-semibold text-right dark:text-white">
-                                    {{ number_format($invoicedItem['total'] ?? 0,2) }}
-                                </span>
-                            </td>
-                        </tr>
-                    @endforeach
-                    <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3 text-sm">
-                            <input wire:model="item" type="text" class="block w-full mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input overflow-y-auto" placeholder="Item" autocomplete="off">
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            <input wire:model="description" type="text" class="block w-full mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" placeholder="Description" autocomplete="off">
-                        </td>
-                        <td class="px-4 py-3 text-xs">
-                            <span class="font-semibold text-right">
-                                <input wire:model="price" type="text" class="block w-full mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" placeholder="Amount" autocomplete="off">
-                            </span>
-                        </td>
-                        <td class="px-4 py-3 text-sm text-right">
-                            <input wire:model="quantity" type="text" class="block w-full mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" placeholder="Quantity" autocomplete="off">
-                        </td>
-                        <td class="px-4 py-3 text-sm text-right">
-                            <span class="font-semibold text-right dark:text-white">
-                                {{ number_format($total,2) }}
-                            </span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td colspan="2" class="text-right px-4 py-3">
-                            <span class="font-semibold dark:text-white">Tax</span>
-                        </td>
-                        <td colspan="2" class="px-4 py-3 text-sm">
-                            <select class="block w-full mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input">
-                                @foreach ($taxes as $tax)
-                                    <option>{{ $tax->name }}  {{ $tax->rate }}%</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td class="px-4 py-3 text-sm text-right">
-                            <span class="font-semibold text-right dark:text-white">
-                                0.00
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="5">
-                            <a 
-                                wire:click="addItem" 
-                                class="w-100 duration-150 cursor-pointer text-purple-800 font-semibold border-dashed border-light-blue-500 border-2 py-3 rounded block align-middle px-auto hover:bg-purple-400 hover:text-white">
-                                <span class="ml-3 capitalize">Add an item</span> 
-                            </a>
-                        </th>
-                    </tr>
-                </tfoot>
-            </table>
+            @livewire('invoices.item-lists-form')
         </div>
     </div>
     
@@ -194,15 +92,29 @@
                 </div>
                 
                 <div class="grid md:grid-cols-2">
-                    <h6 class="font-semibold dark:text-white mt-8">GST 8%</h6> 
-                    <span class="text-font-semibold dark:text-white mt-8">0.00</span>
+                    <h6 class="font-semibold dark:text-white mt-8">
+                        @if ($taxes['name'])
+                            {{ $taxes['name'] }} 
+                            @if ($taxes['rate'])
+                                {{ $taxes['rate'] }} %
+                            @endif           
+                        @endif
+                    </h6> 
+                    <span class="text-font-semibold dark:text-white mt-8">{{ number_format($taxAmount,2) }}</span>
                 </div>
-    
+                
+                <div class="grid md:grid-cols-2">
+                    <h6 class="font-semibold dark:text-white mt-8 ">Total </h6> 
+                    <span class="text-font-semibold dark:text-white mt-8">{{ number_format($total,2) }}</span>
+                </div>
+
                 <div class="grid md:grid-cols-2">
                     <h6 class="font-semibold dark:text-white mt-8">Currency</h6> 
-                    <select name="" id="" class="inline-block w-50 mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outine-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
+                    <select 
+                        wire:model="selectedCurrency"
+                        class="inline-block w-50 mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outine-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
                        @foreach ($currencies as $currency)
-                            <option value="{{ $currency->id }}">{{ $currency->ISO }} - {{ $currency->name }}</option>
+                            <option value="{{ $loop->index }}">{{ $currency->ISO }} - {{ $currency->name }}</option>
                        @endforeach
                     </select>
                 </div>
