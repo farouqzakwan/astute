@@ -16,7 +16,7 @@ class Tags extends Model
     * @var array
     */
     protected $guarded = [];
-    protected $table = 'images';
+    protected $table = 'tags';
 
     public function tagable()
     {

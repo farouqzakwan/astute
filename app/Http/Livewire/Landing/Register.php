@@ -13,9 +13,15 @@ class Register extends Component
 
     protected $rules = [
         'companyName'   => 'required|string',
-        'email'         => 'required|string|email|email:rfc,dns|unique:users,email',
+        'email'         => 'required|string|email|unique:users,email',
+        // 'email'         => 'required|string|email|email:rfc,dns|unique:users,email',
         'password'      => 'required|string'
     ];
+
+    public function render()
+    {
+        return view('livewire.landing.register');
+    }
 
     public function createAccount()
     {
@@ -28,11 +34,6 @@ class Register extends Component
             'password'      => $this->password
         ]);
     
-        return redirect()->route('home');
-    }
-
-    public function render()
-    {
-        return view('livewire.landing.register');
+        return redirect()->route('login');
     }
 }

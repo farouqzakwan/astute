@@ -101,7 +101,7 @@
                         @endif
                     </h6> 
                     <span class="text-font-semibold dark:text-white mt-8">{{ number_format($taxAmount,2) }}</span>
-                </div>
+                </div> 
                 
                 <div class="grid md:grid-cols-2">
                     <h6 class="font-semibold dark:text-white mt-8 ">Total </h6> 
@@ -119,6 +119,7 @@
                     </select>
                 </div>
 
+                 
                 <div class="grid mt-5 md:grid-cols-2">
                     <button 
                             wire:click="saveInvoice()" 
@@ -134,7 +135,8 @@
                                 </div>
                             </span>
                     </button>
-                </div>
+                </div> 
+
             </div>
         </div>
     </div>

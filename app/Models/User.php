@@ -126,7 +126,7 @@ class User extends Authenticatable
             'state'             => $userCompany->state ?? null,
             'postcode'          => $userCompany->postcode ?? null,
             'country'           => $userCompany->country ?? null,
-            'company_logo'      => str_replace('public/','storage/',$userCompany->image->location) ?? 'image/icons/image.png',
+            'company_logo'      => (!empty($userCompany->image))? str_replace('public/','storage/',$userCompany->image->location) : 'image/icons/image.png',
             'storage'           => $userCompany->image->storage ?? 'local',
         ];
     }

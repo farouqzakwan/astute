@@ -11,7 +11,7 @@ class UserContactRepository extends Repository
     /**
      * Instantiate reporitory
      * 
-     * @param  $user
+     * @param  $userContact
      */
     public function __construct(UserContact $userContact)
     {

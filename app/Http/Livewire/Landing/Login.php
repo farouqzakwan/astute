@@ -12,7 +12,7 @@ class Login extends Component
     public $password;
 
     protected $rules = [
-        'email'         => 'required|string|email|email:rfc,dns',
+        'email'         => 'required|string|email',
         'password'      => 'required|string'
     ];
 
