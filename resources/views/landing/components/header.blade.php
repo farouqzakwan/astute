@@ -1,6 +1,6 @@
 <header class="text-black body-font bg-white">
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <a href="{{ url('') }}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
         <svg class="w-10 h-10" width="480" height="475" viewBox="0 0 480 475" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="91.683" y="146.519" width="59" height="133" transform="rotate(43.2917 91.683 146.519)" fill="black"/>
             <ellipse cx="112.812" cy="167.111" rx="29.5" ry="30.5" transform="rotate(43.2917 112.812 167.111)" fill="black"/>
