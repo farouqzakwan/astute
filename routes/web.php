@@ -38,6 +38,13 @@ Route::get('/reset-password/{temporaryCode}',function(){
 })->name('reset-password');
 
 
+Route::view('/about-us','landing.about-us')->name('about-us');
+Route::view('/pricing','landing.pricing')->name('pricing');
+Route::view('/careers','landing.careers')->name('careers');
+
+
+
+
 Route::middleware('auth')->group(function () {
     
     Route::bind('user',function($value){
