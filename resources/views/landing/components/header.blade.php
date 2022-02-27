@@ -23,9 +23,9 @@
         <span class="ml-3 text-xl">{{ config('app.name') }}</span>
       </a>
       <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-        <a href="{{ route('register') }}" class="mr-5 hover:text-gray-900">About Us</a>
-        <a href="{{ route('login') }}" class="mr-5 hover:text-gray-900">Pricing</a>
-        <a href="{{ route('login') }}" class="mr-5 hover:text-gray-900">Careers</a>
+        <a href="{{ route('about-us') }}" class="mr-5 hover:text-gray-900">About Us</a>
+        <a href="{{ route('pricing') }}" class="mr-5 hover:text-gray-900">Pricing</a>
+        <a href="{{ route('careers') }}" class="mr-5 hover:text-gray-900">Careers</a>
       </nav>
       <a 
       href="{{ route('register') }}"
