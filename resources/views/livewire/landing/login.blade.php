@@ -6,7 +6,7 @@
             <a class="flex items-center w-32 mb-4 font-medium text-blueGray-900 title-font md:mb-10">
                 <h2 class="text-lg font-bold tracking-tighter text-black uppercase duration-500 ease-in-out transform ttransition hover:text-lightBlue-500 dark:text-blueGray-400">{{ config('app.name') }}</h2>
             </a>
-            <h1 class="mb-2 text-2xl font-semibold tracking-tighter text-black-700 tsm:text-5xl title-font"> Discover 100+ <br> screens ready to use. </h1>
+            <h1 class="mb-2 text-2xl font-semibold tracking-tighter text-black-700 tsm:text-5xl title-font"> Sent Invoices <br> Managing your teams and business </h1>
             </div>
         </div>
         <div class="flex w-full h-screen px-6 bg-white md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/3 lg:px-16 xl:px-12 items-left justify-left">

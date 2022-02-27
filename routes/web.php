@@ -41,8 +41,10 @@ Route::get('/reset-password/{temporaryCode}',function(){
 Route::view('/about-us','landing.about-us')->name('about-us');
 Route::view('/pricing','landing.pricing')->name('pricing');
 Route::view('/careers','landing.careers')->name('careers');
-
-
+Route::view('/faq','landing.faq')->name('faq');
+Route::view('/pdpa','landing.pdpa')->name('pdpa');
+Route::view('/changelog','landing.changelog')->name('changelog');
+Route::view('/policies','landing.policies')->name('policies');
 
 
 Route::middleware('auth')->group(function () {

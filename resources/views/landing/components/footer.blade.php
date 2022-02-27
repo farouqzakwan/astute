@@ -41,16 +41,16 @@
           <h2 class="title-font font-medium text-red-500 tracking-widest text-lg mb-3">Resources</h2>
           <nav class="list-none mb-10">
             <li>
-              <a href="{{ route('about-us') }}" class="text-white hover:text-gray-50">FAQ</a>
+              <a href="{{ route('faq') }}" class="text-white hover:text-gray-50">FAQ</a>
             </li>
             <li>
-              <a href="{{ route('pricing') }}" class="text-white hover:text-gray-50">PDPA</a>
+              <a href="{{ route('pdpa') }}" class="text-white hover:text-gray-50">PDPA</a>
             </li>
             <li>
-              <a href="" class="text-white hover:text-gray-50">Changelog</a>
+              <a href="{{ route('changelog') }}" class="text-white hover:text-gray-50">Changelog</a>
             </li>
             <li>
-              <a href="" class="text-white hover:text-gray-50">Policies</a>
+              <a href="{{ route('policies') }}" class="text-white hover:text-gray-50">Policies</a>
             </li>
           </nav>
         </div>

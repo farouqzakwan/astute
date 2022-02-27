@@ -26,8 +26,8 @@
                         </svg>
                         <span class="ml-3 font-semibold text-dark">{{ config('app.name') }}</span>
                     </a>
-                    <h2 class="mt-12 mb-2 text-2xl font-semibold tracking-tighter text-black sm:text-3xl title-font"> Create an account. </h2>
-                    <div class="w-full mt-16 mb-8 text-base leading-relaxed text-blueGray-900 sm:md:w-3/3 lg:text-1xl "> All you have to do is choose the section you need, remove the one that you do not need for that project and paste the one you need in that moment. All the section have been given the same left/right padding. Because consistence is king. </div>
+                    <h2 class="mt-12 mb-2 text-2xl font-semibold tracking-tighter text-black sm:text-3xl title-font"> Create an <span class="text-red-500">account</span>. </h2>
+                    <div class="w-full mt-16 mb-8 text-base leading-relaxed text-blueGray-900 sm:md:w-3/3 lg:text-1xl "> Create an account and keep tracks your sale and revenue in one place. Managing your business and teams are much easier with {{ config('app.name') }}.</div>
                 </div>
                 </div>
                 <div class="w-full px-8 py-24 bg-white rounded-lg border-blueGray-100 lg:w-8/12 lg:px-24 lg:py-4 lg:rounded-l-none s">

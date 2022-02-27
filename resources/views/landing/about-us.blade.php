@@ -61,7 +61,7 @@
               </div>
 
             </div>
-          </section>
+        </section>
 
 
         {{-- about us timeline --}}
