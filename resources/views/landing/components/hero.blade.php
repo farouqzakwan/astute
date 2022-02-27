@@ -1,8 +1,8 @@
 <section class="text-black body-font bg-gradient-to-r from-blue-300 to-indigo-800">
     <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
       <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-extrabold text-white">Create professional invoice for free</h1>
-        <p class="mb-8 leading-relaxed">Every invoice paid is positive incoming revenue for your business. {{ config('app.name') }} invoice software enables you to easily create and send professional invoices for free.</p>
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-extrabold text-white">Create professional invoice for <span class="text-red-500">FREE</span></h1>
+        <p class="mb-8 leading-relaxed">Every invoice paid is positive incoming revenue for your business. {{ config('app.name') }} invoice software enables you to easily create and send professional invoices for <span class="text-red-500">FREE</span>.</p>
     
         <p class="text-sm mt-2 text-black mb-8 w-full">{{ config('app.name') }} is now available on mobile</p>
         <div class="flex lg:flex-row md:flex-col">
