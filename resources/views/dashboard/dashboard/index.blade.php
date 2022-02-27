@@ -4,6 +4,6 @@
       @livewire('dashboard.total-client')
       @livewire('dashboard.total-invoices')  
       @livewire('dashboard.invoice-amount')  
+      @livewire('dashboard.invoiced-clients')
   </div>
-
 @endpush
