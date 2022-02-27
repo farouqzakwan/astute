@@ -29,15 +29,15 @@
       </nav>
       <a 
       href="{{ route('register') }}"
-      class="inline-flex items-center bg-purple-500 border-0 py-1 px-3 focus:outline-none hover:bg-purple-600 rounded text-base text-white mx-3 mt-4 md:mt-0">Register
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      class="inline-flex items-center bg-blue-500 border-0 py-1 px-5 focus:outline-none hover:bg-blue-300 rounded-full text-base text-white mx-3 mt-4 md:mt-0">Register
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
       </a>
       <a 
       href="{{ route('login') }}"
-      class="inline-flex items-center bg-purple-500 border-0 py-1 px-3 focus:outline-none hover:bg-purple-600 rounded text-base text-white mx-3 mt-4 md:mt-0">Login
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      class="inline-flex items-center bg-purple-500 border-0 py-1 px-5 focus:outline-none hover:bg-purple-600 rounded-full text-base text-white mx-3 mt-4 md:mt-0">Login
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
         </svg>
       </a>
