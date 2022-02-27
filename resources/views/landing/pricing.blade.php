@@ -64,8 +64,8 @@
                             <div class="flex items-center justify-center w-1/2 text-center p-4">Email Marketing</div>
                         </div>
                         <a class="block flex items-center justify-center bg-purple-800 hover:bg-purple-700 p-8 text-md font-semibold text-gray-300 uppercase mt-8" href="#">
-                            <span>Create Account</span>
-                            <span class="font-medium text-gray-300 ml-2">➔</span>
+                            <span>Coming Soon</span>
+                            {{-- <span class="font-medium text-gray-300 ml-2">➔</span> --}}
                         </a>
                     </div>
                     </div>
